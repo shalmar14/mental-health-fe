@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.h2-login {
+  font-weight: 600;
+}
+
+.h6-login {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.form-label-login {
+  font-weight: 500;
+}
+
+.button-masuk-login, .button-google-login {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif; 
+}
+
+.container-login {
+  background: linear-gradient(to right, #808080, #A9A9A9);
+  height: 700px;
+  min-height: 100vh;
+  }
+  
+.card-login {
+    background-color: beige;
+    width: 400px;
+    border-radius: 10px;
+  }
+
+  .line-login {
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    width: 90%;
+}
+
+.linkContainer-login {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  gap:5px;
+  margin-bottom: -20px;
+}
+
+.link-login, p, h6 {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 16px; 
+}
+
+.link-forgotpassword {
+  text-decoration: none; 
+  color: black;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.link-forgotpassword:hover {
+  color: orange;
+  transform: scale(1.05);
+}
+
+.link-login {
+  padding-bottom: 17px;
+  text-decoration: none; 
+  color: black;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.link-login:hover{
+  color: orange;
+  transform: scale(1.05);
+}
+
+.img-login {
+  width: 20px;
+}  

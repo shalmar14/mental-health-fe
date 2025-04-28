@@ -1,0 +1,82 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.guide-allContainer {
+  background: linear-gradient(to right, #808080, #A9A9A9);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.list-group-item-dark-guide {
+background-color: beige !important;
+}
+
+.guide-container {
+  max-width: 800px;
+  margin: 150px auto;
+  padding: 20px;
+  background-color: beige;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.guide-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.guide-text {
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.guide-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ul-guide {
+  background-color: beige;
+}
+
+.guide-list .list-group-item {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  font-size: 1.1rem;
+  border-radius: 5px;
+}
+
+.button-guide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Jika Anda juga ingin memusatkan secara vertikal */
+}
+
+@media (max-width: 768px) {
+  .guide-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+  
+  .guide-title {
+    font-size: 1.8rem;
+  }
+
+  .guide-text {
+    font-size: 1rem;
+  }
+
+  .guide-list .list-group-item {
+    font-size: 1rem;
+  }
+}
