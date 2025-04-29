@@ -27,9 +27,10 @@ const options = [
 
 export default function QuestionnairePage() {
   const navigate = useNavigate();
-  const [answers, setAnswers] = useState(Array(questions.length).fill("")); // State untuk menyimpan jawaban
+  const [answers, setAnswers] = useState(Array(questions.length).fill("")); 
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Cek token dan logout otomatis jika token hilang
+
   useEffect(() => {
     const checkToken = () => {
       const token = localStorage.getItem("xy") || sessionStorage.getItem("xy");
@@ -69,9 +70,11 @@ export default function QuestionnairePage() {
   // Fungsi untuk mengirim jawaban ke backend
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setIsLoading(true); 
 
   const token = localStorage.getItem("xy") || sessionStorage.getItem("xy");
   if (!token) {
+    setIsLoading(false);
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("authToken");
     localStorage.removeItem("username");
@@ -90,6 +93,7 @@ const handleSubmit = async (e) => {
   // Validasi: Pastikan semua jawaban telah diisi
   const allAnswered = answers.every((answer) => answer !== "");
   if (!allAnswered) {
+    setIsLoading(false);
     alert("Silakan isi semua jawaban sebelum mengirim.");
     return;
   }
@@ -165,6 +169,8 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error("Error:", error);
     alert("Terjadi kesalahan saat mengirim data ke server.");
+  } finally {
+    setIsLoading(false);
   }
 };
 
@@ -215,8 +221,9 @@ const handleSubmit = async (e) => {
               <button
                 type="submit"
                 className="btn btn-success px-4 button-container"
+                disabled={isLoading}
               >
-                Kirim Jawaban
+                {isLoading ? "Mengirim..." : "Kirim Jawaban"}
               </button>
             </div>
           </form>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../css/navbar.css";
 
@@ -48,21 +48,39 @@ function Navbar() {
     }
   };
 
+  const isActiveButton = (path) => {
+    return window.location.pathname === path;
+  };  
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light sticky-top navbar-container">
       <div className="container-fluid">
         <div className="navbar-collapse-navbar">
           <ul className="navbar-nav ul-navbar">
             <li className="nav-item-navbar">
-              <Link to="/" className="nav-link nav-link-navbar">Beranda</Link>
+              <NavLink 
+                to="/" 
+                className={({ isActive }) => 
+                  "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
+                }
+              >
+                Beranda
+              </NavLink>
             </li>
             <li className="nav-item-navbar">
-              <Link to="/guide" className="nav-link nav-link-navbar">Lihat Panduan</Link>
+              <NavLink 
+                to="/guide" 
+                className={({ isActive }) => 
+                  "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
+                }
+              >
+                Lihat Panduan
+              </NavLink>
             </li>
             <li className="nav-item-navbar">
               <button 
                 onClick={() => handleProtectRoute("/questionnaire")} 
-                className="nav-link nav-link-navbar btn btn-link"
+                className={`nav-link nav-link-navbar ${isActiveButton("/questionnaire") ? "active-navbar" : ""}`}
               >
                 Diagnosa
               </button>
@@ -71,23 +89,35 @@ function Navbar() {
             {isLoggedIn ? (
               <>
                 <li className="nav-item-navbar">
-                  <Link to="/result" className="nav-link nav-link-navbar">Hasil Diagnosa</Link>
+                  <NavLink 
+                    to="/result" 
+                    className={({ isActive }) => 
+                      "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
+                    }
+                  >
+                    Hasil Diagnosa
+                  </NavLink>
                 </li>
                 <li className="nav-item-navbar">
-                  <button onClick={handleLogout} className="nav-link nav-link-navbar btn btn-link">
+                  <button 
+                    onClick={handleLogout} 
+                    className="nav-link nav-link-navbar btn btn-link"
+                  >
                     Keluar
                   </button>
                 </li>
               </>
             ) : (
               <li className="nav-item-navbar">
-                <Link 
+                <NavLink 
                   to="/login" 
                   onClick={() => sessionStorage.removeItem("redirectPath")} 
-                  className="nav-link nav-link-navbar"
+                  className={({ isActive }) => 
+                    "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
+                  }
                 >
                   Masuk
-                </Link>
+                </NavLink>
               </li>
             )}
           </ul>

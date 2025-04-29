@@ -59,7 +59,7 @@ background-color: beige !important;
 .button-guide-container {
   display: flex;
   justify-content: center;
-  align-items: center; /* Jika Anda juga ingin memusatkan secara vertikal */
+  align-items: center; 
 }
 
 @media (max-width: 768px) {

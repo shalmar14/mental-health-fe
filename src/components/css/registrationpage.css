@@ -63,7 +63,7 @@ html, body {
 
 .container-registration {
   background: linear-gradient(to right, #808080, #A9A9A9);
-  min-height: 100vh; /* ubah jadi minimal 1 layar */
+  min-height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +81,6 @@ html, body {
     margin-top: 5px;
     width: 90%;
 }
-
 
 .img-registration {
   width: 20px;

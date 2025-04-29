@@ -8,6 +8,13 @@
   justify-content: center; 
 }
 
+/* Tambahkan selector lebih spesifik */
+.nav-link-navbar.active-navbar {
+  border-bottom: 2px solid orange !important;
+  color: orange !important;
+}
+
+
 .h4-navbar {
   font-size: 18px;
 }
@@ -59,6 +66,22 @@
   width: 100%;
   left: 0; 
 }
+
+.nav-link-navbar.active-navbar:hover {
+  transform: none !important;
+  color: orange !important;
+}
+
+.nav-link-navbar.active-navbar::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-link-navbar.active-navbar:hover::after {
+  width: 100%;
+  left: 0;
+}
+
 
 
 @media (max-width: 991px) {
