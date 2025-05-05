@@ -19,7 +19,6 @@ function ResetPassword() {
     const emailParam = params.get("email");
 
     if (!check || !emailParam) {
-      // Jika tidak valid, redirect paksa
       navigate("/forgotpassword");
     } else {
       setEmail(emailParam); 
@@ -30,12 +29,12 @@ function ResetPassword() {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      setErrorMessage("Konfirmasi password tidak cocok");
+      setErrorMessage("The password confirmation is not the same as the password entered!");
       return;
     }
 
     if (newPassword.length < 8) {
-      setErrorMessage("Password harus minimal 8 karakter");
+      setErrorMessage("Your password must have at least 8 characters!");
       return;
     }
 
@@ -50,7 +49,7 @@ function ResetPassword() {
 
       const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message || "Gagal reset password");
+      if (!response.ok) throw new Error(data.message || "Failed to reset the password!");
 
       setMessage(data.message);
       setErrorMessage("");
@@ -68,7 +67,7 @@ function ResetPassword() {
       <Navbar />
       <div className="login-container d-flex justify-content-center align-items-center container-login">
         <div className="login-card p-4 shadow-lg card-login">
-          <h2 className="text-center mb-3 h2-login">Atur Ulang Kata Sandi</h2>
+          <h2 className="text-center mb-3 h2-login">Reset Your Password</h2>
 
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           {message && <div className="alert alert-success">{message}</div>}
@@ -85,11 +84,11 @@ function ResetPassword() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-login">Password Baru</label>
+              <label className="form-label form-label-login">New Password</label>
               <input
                 type="password"
                 className="form-control"
-                placeholder="Masukkan Password Baru"
+                placeholder="Enter Your New Password..."
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
@@ -100,11 +99,11 @@ function ResetPassword() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-login">Konfirmasi Password</label>
+              <label className="form-label form-label-login">Password Confirmation</label>
               <input
                 type="password"
                 className="form-control"
-                placeholder="Konfirmasi Password Baru"
+                placeholder="Confirm Your New Password..."
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required

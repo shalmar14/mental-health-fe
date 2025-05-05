@@ -13,7 +13,7 @@ function GuidePage() {
       const isLoggedIn = localStorage.getItem("isLoggedIn") || sessionStorage.getItem("sessionActive");
 
       if (isLoggedIn && !token) {
-        // Hapus semua data sesi
+
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("authToken");
         localStorage.removeItem("username");
@@ -24,15 +24,14 @@ function GuidePage() {
         sessionStorage.removeItem("redirectPath");
 
         window.dispatchEvent(new Event("storage"));
-        alert("Sesi Anda telah berakhir. Silakan login kembali.");
+        alert("Your session is over! Please log in to your account again.");
         navigate("/");
       }
     };
 
-    // Mengecek token setiap 2 detik
     const interval = setInterval(checkToken, 2000);
 
-    return () => clearInterval(interval); // Bersihkan interval saat komponen di-unmount
+    return () => clearInterval(interval);
   }, [navigate]);
 
   return (
@@ -40,27 +39,15 @@ function GuidePage() {
       <Navbar />
       <div className="guide-allContainer">
         <div className="container guide-container">
-          <h1 className="text-center guide-title">Panduan Pengisian Kuisioner</h1>
+          <h1 className="text-center guide-title">Questionnaire Filling Guide</h1>
           <hr />
-          <p className="text-center guide-text">
-            Anda akan mengisi 11 pertanyaan dengan 4 jawaban:
+          <p className="guide-text">
+          You will be asked to answer 22 questions relating to conditions and factors that may affect your mental health, especially in the context of work and daily life. Questions include demographic information such as gender and employment status, personal and family mental health history, stress levels, changes in habits, as well as your views on mental health support in the work environment. The 9 questions of them refer to PHQ-9 questions for more accurate analysis or early diagnosis. Your answers will help in understanding your overall mental state.
           </p>
-          <ul className="list-group list-group-flush text-center guide">
-            <li className="list-group-item text-dark list-group-item-dark-guide" />
-            <li className="list-group-item text-dark list-group-item-dark-guide"> <strong>Tidak pernah</strong>  </li>
-            <li className="list-group-item text-dark list-group-item-dark-guide"> <strong>Kadang-kadang</strong>  </li>
-            <li className="list-group-item text-dark list-group-item-dark-guide"> <strong>Sering</strong>  </li>
-            <li className="list-group-item text-dark list-group-item-dark-guide"> <strong>Hampir Setiap Hari</strong>  </li>
-            <li className="list-group-item text-dark list-group-item-dark-guide" />
-          </ul>
-          <p className="text-center guide-text">
-            Semua jawaban memiliki bobot poin yang nantinya akan menentukan hasil diagnosa.
-          </p>
-
           <div className="text-center button-guide-container">
             <Link to="/questionnaire">
               <button type="submit" className="btn btn-success button-guide">
-                Lanjut ke halaman diagnosa
+                Continue To The Questionnaire Page
               </button>
             </Link>
           </div>

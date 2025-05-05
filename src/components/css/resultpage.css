@@ -41,6 +41,18 @@ body {
   margin-bottom: 15px;
 }
 
+.diagnosis-title {
+  margin-top: 10px;
+}
+
+.message-cart, .message-phq {
+  margin-top: -15px;
+}
+
+.message-cart {
+  margin-bottom: 25px;
+}
+
 @media (max-width: 768px) {
   .card-result {
     padding: 15px;

@@ -30,7 +30,7 @@ function LoginPage() {
   
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Login gagal");
+        throw new Error(errorData.message || "Failed To Log In!");
       }
   
       const data = await response.json(); 
@@ -53,13 +53,11 @@ function LoginPage() {
 
       navigate("/")
   
-      window.dispatchEvent(new Event("storage")); // Update HomePage
+      window.dispatchEvent(new Event("storage")); 
 
-       // Ambil dan hapus redirectPath
        const redirectPath = sessionStorage.getItem("redirectPath");
        sessionStorage.removeItem("redirectPath");
  
-       // Logika redirect baru
        let targetPath = "/";
        if (redirectPath === "/questionnaire") {
          targetPath = "/guide";
@@ -69,7 +67,6 @@ function LoginPage() {
  
        navigate(targetPath);
  
-  
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -80,7 +77,7 @@ function LoginPage() {
       <Navbar />
       <div className="login-container d-flex justify-content-center align-items-center container-login">
         <div className="login-card p-4 shadow-lg card-login">
-          <h2 className="text-center mb-3 h2-login">MASUK</h2>
+          <h2 className="text-center mb-3 h2-login">SIGN IN</h2>
 
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
@@ -90,7 +87,7 @@ function LoginPage() {
               <input
                 type="email"
                 className="form-control"
-                placeholder="Masukkan Email"
+                placeholder="Enter Your Email..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -98,11 +95,11 @@ function LoginPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-login">Kata Sandi</label>
+              <label className="form-label form-label-login">Password</label>
               <input
                 type="password"
                 className="form-control"
-                placeholder="Masukkan Kata Sandi"
+                placeholder="Enter Your Password..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -118,26 +115,26 @@ function LoginPage() {
                 onChange={() => setRememberMe(!rememberMe)}
               />
               <label className="form-check-label" htmlFor="rememberMe">
-                Tetap Masuk
+                Remember Me?
               </label>
             </div>
 
             <div className="d-flex justify-content-between mb-3">
               <Link to="/forgotpassword" className="link-forgotpassword">
-                Lupa Kata Sandi?
+                Forgot Your Password?
               </Link>
             </div>
 
             <button type="submit" className="btn btn-success w-100 button-masuk-login">
-              MASUK
+              Sign In
             </button>
           </form>
 
           <div className="text-center mt-3">
             <div className="linkContainer-login">
-              <p>Belum Punya Akun?</p>
+              <p>No Account Yet?</p>
               <Link to="/registration" className="link-login">
-                Daftar Disini!
+                Sign Up Here!
               </Link>
             </div>
           </div>

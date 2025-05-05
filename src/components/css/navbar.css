@@ -10,7 +10,7 @@
 
 /* Tambahkan selector lebih spesifik */
 .nav-link-navbar.active-navbar {
-  border-bottom: 2px solid orange !important;
+  border-bottom: 2px orange !important;
   color: orange !important;
 }
 

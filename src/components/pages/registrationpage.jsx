@@ -26,12 +26,12 @@ function RegistrationPage() {
     e.preventDefault();
 
     if (password.length < 8) {
-      alert("Password harus memiliki minimal 8 karakter.");
+      alert("Your password must have at least 8 characters!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Konfirmasi password tidak cocok.");
+      alert("The password confirmation is not the same as the password entered!");
       return;
     }
 
@@ -56,14 +56,14 @@ function RegistrationPage() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Registrasi Berhasil!");
+        alert("Registration successful!");
         navigate("/login");
       } else {
         alert(data.message);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Terjadi kesalahan. Silakan coba lagi.");
+      alert("There's an error! Please try again!");
     }
   };
 
@@ -72,14 +72,14 @@ function RegistrationPage() {
       <Navbar />
       <div className="login-container d-flex justify-content-center align-items-center container-registration">
         <div className="login-card p-4 shadow-lg card-registration">
-          <h2 className="text-center mb-3 h2-registration">DAFTAR</h2>
+          <h2 className="text-center mb-3 h2-registration">SIGN UP</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label className="form-label form-label-registration">Nama Anda</label>
+              <label className="form-label form-label-registration">Name</label>
               <input
                 type="text"
                 className="form-control input-registration"
-                placeholder="Masukkan Nama Anda"
+                placeholder="Enter Your Name..."
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -91,7 +91,7 @@ function RegistrationPage() {
               <input
                 type="email"
                 className="form-control input-registration"
-                placeholder="Masukkan Email"
+                placeholder="Enter Your Email..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -99,26 +99,26 @@ function RegistrationPage() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-registration">Kata Sandi</label>
+              <label className="form-label form-label-registration">Password</label>
               <input
                 type="password"
                 className="form-control input-registration"
-                placeholder="Masukkan Kata Sandi"
+                placeholder="Enter Your Password..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
               {password.length > 0 && password.length < 8 && (
-                <small className="text-danger">Password minimal 8 karakter.</small>
+                <small className="text-danger">Your password must have at least 8 characters!</small>
               )}
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-registration">Konfirmasi Kata Sandi</label>
+              <label className="form-label form-label-registration">Password Confirmation</label>
               <input
                 type="password"
                 className="form-control input-registration"
-                placeholder="Konfirmasi Kata Sandi"
+                placeholder="Confirm Your Password..."
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -127,30 +127,30 @@ function RegistrationPage() {
 
             <hr />
 
-            <p><strong>Pertanyaan Keamanan (Harap Diingat)</strong></p>
+            <p><strong>Security Question (Please Remember It!)</strong></p>
 
             <div className="mb-3">
-              <label className="form-label form-label-registration">Pilih Pertanyaan</label>
+              <label className="form-label form-label-registration">Select A Question Below!</label>
               <select
                 className="form-select input-registration"
                 value={securityQuestion}
                 onChange={(e) => setSecurityQuestion(e.target.value)}
                 required
               >
-                <option value="">-- Pilih Pertanyaan --</option>
-                <option value="Apakah Warna Favoritmu?">Apakah Warna Favoritmu?</option>
-                <option value="Dimanakah Kedua Orang Tuamu Pertama Kali Bertemu?">Dimanakah Kedua Orang Tuamu Pertama Kali Bertemu?</option>
-                <option value="Judul Film Pertama Kali Yang Kamu Tonton?">Judul Film Pertama Kali Yang Kamu Tonton?</option>
-                <option value="Siapa Guru Favoritmu Di SD?">Siapa Guru Favoritmu Di SD?</option>
+                <option value="" disabled>-- Select A Question --</option>
+                <option value="What Is Your Favorite Color?">What Is Your Favorite Color?</option>
+                <option value="Where Did Your Parents First Meet?">Where Did Your Parents First Meet?</option>
+                <option value="What Was The Title Of The Movie You Watched For The First Time?">What Was The Title Of The Movie You Watched For The First Time?</option>
+                <option value="Who Was Your Favorite Teacher In Elementary School?">Who Was Your Favorite Teacher In Elementary School?</option>
               </select>
             </div>
 
             <div className="mb-3">
-              <label className="form-label form-label-registration">Jawaban</label>
+              <label className="form-label form-label-registration">Answer</label>
               <input
                 type="text"
                 className="form-control input-registration"
-                placeholder="Masukkan Jawaban Anda"
+                placeholder="Enter Your Answer..."
                 value={securityAnswer}
                 onChange={(e) => setSecurityAnswer(e.target.value)}
                 required
@@ -158,15 +158,15 @@ function RegistrationPage() {
             </div>
 
             <button type="submit" className="btn btn-success w-100 button-daftar-registration">
-              DAFTAR
+              Sign Up
             </button>
           </form>
 
           <div className="text-center mt-3">
             <div className="linkContainer-registration">
-              <p className="p-registration">Sudah punya akun?</p>
+              <p className="p-registration">You Have An Account Already?</p>
               <Link to="/login" className="link-registration">
-                Masuk Disini!
+                Log In Here!
               </Link>
             </div>
           </div>

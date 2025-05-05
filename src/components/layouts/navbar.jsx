@@ -64,7 +64,7 @@ function Navbar() {
                   "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
                 }
               >
-                Beranda
+                Homepage
               </NavLink>
             </li>
             <li className="nav-item-navbar">
@@ -74,7 +74,7 @@ function Navbar() {
                   "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
                 }
               >
-                Lihat Panduan
+                Guide
               </NavLink>
             </li>
             <li className="nav-item-navbar">
@@ -82,7 +82,7 @@ function Navbar() {
                 onClick={() => handleProtectRoute("/questionnaire")} 
                 className={`nav-link nav-link-navbar ${isActiveButton("/questionnaire") ? "active-navbar" : ""}`}
               >
-                Diagnosa
+                Questionnaire
               </button>
             </li>
 
@@ -95,7 +95,7 @@ function Navbar() {
                       "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
                     }
                   >
-                    Hasil Diagnosa
+                    Diagnosis Result
                   </NavLink>
                 </li>
                 <li className="nav-item-navbar">
@@ -103,7 +103,7 @@ function Navbar() {
                     onClick={handleLogout} 
                     className="nav-link nav-link-navbar btn btn-link"
                   >
-                    Keluar
+                    Sign Out
                   </button>
                 </li>
               </>
@@ -116,7 +116,7 @@ function Navbar() {
                     "nav-link nav-link-navbar" + (isActive ? " active-navbar" : "")
                   }
                 >
-                  Masuk
+                  Sign In
                 </NavLink>
               </li>
             )}

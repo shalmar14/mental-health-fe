@@ -5,31 +5,57 @@ import Footer from "../layouts/footer";
 import "../css/questionnairepage.css";
 
 const questions = [
-  "Apakah Anda mengalami kesulitan untuk tidur atau justru tidur berlebihan?",
-  "Apakah Anda mengalami penurunan nafsu makan atau justru makan berlebihan?",
-  "Apakah Anda merasa kurang berminat atau kurang senang dalam melakukan hal-hal yang biasanya Anda nikmati?",
-  "Apakah Anda sering merasa lelah atau kekurangan energi?",
-  "Apakah Anda merasa buruk tentang diri Anda sendiri atau merasa bahwa Anda adalah orang gagal atau telah mengecewakan diri sendiri atau keluarga Anda?",
-  "Apakah Anda mengalami kesulitan untuk berkonsentrasi pada sesuatu, seperti membaca koran atau menonton televisi?",
-  "Apakah Anda merasa sangat gelisah, tidak bisa diam, atau merasa tertekan secara fisik sehingga sulit untuk tenang?",
-  "Apakah Anda pernah berpikir bahwa Anda akan lebih baik jika meninggal atau memiliki keinginan untuk menyakiti diri sendiri dengan cara apa pun?",
-  "Apakah Anda merasa mudah marah, tersinggung, atau memiliki dorongan untuk bersikap agresif terhadap orang lain atau benda di sekitar Anda?",
-  "Apakah Anda pernah mengalami serangan panik secara tiba-tiba, seperti detak jantung cepat, kesulitan bernapas, berkeringat, atau merasa seperti kehilangan kendali?",
-  "Apakah Anda sering merasa sedih, tertekan, atau putus harapan?"
+  "What is your gender?",
+  "How old are you?",
+  "Are you self-employed (freelancer, contract-based, etc)?",
+  "Do you have a family history of mental health disorders?",
+  "How many days in a month do you spend mostly indoors?",
+  "Have you been feeling more stressed than usual lately?",
+  "Have you experienced drastic changes in your habits or routines?",
+  "Have you ever had any mental health issues in the past?",
+  "How often do you experience mood swings?",
+  "Do you find it difficult to cope with problems or life pressures?",
+  "Have you felt disinterested in work in the past few weeks?",
+  "Do you find it difficult to socialize or maintain relationships?",
+  "If you feel mentally disturbed, are you willing to talk to a professional?",
+  "Does your workplace provide mental health support?",
+  "Do you feel disinterested in doing things you usually enjoy?",
+  "Do you often feel sad, depressed, or hopeless?",
+  "Do you have trouble sleeping or do you sleep excessively?",
+  "Do you often feel tired or lack energy?",
+  "Have you experienced a loss of appetite or are you overeating?",
+  "Do you feel bad about yourself, feel like a failure, or that you have let yourself or your family down?",
+  "Do you have trouble concentrating on things, such as reading the newspaper or watching television?",
+  "Do you feel very restless, unable to sit still, or physically agitated to the point where it's hard to relax?",
+  "Have you ever had thoughts that you would be better off dead or thoughts of hurting yourself in any way?",
 ];
 
-const options = [
-  "Tidak Pernah",
-  "Kadang-kadang",
-  "Sering",
-  "Hampir Setiap Hari",
-];
+const getOptions = (index) => {
+  if (index === 0) {
+    return ["Male", "Female"];
+  } else if (index >= 14 && index <= 22) {
+    return ["Never", "Sometimes", "Often", "Almost Always"];
+  } else if (
+    [2, 3, 5, 6, 7, 9, 10, 11].includes(index)
+  ) {
+    return ["Yes", "No"];
+  } else if (index === 12) {
+    return ["Yes", "No", "Maybe"];
+  } else if (index === 13) {
+    return ["Yes", "No", "Not Sure"];
+  } else if (index === 4) {
+    return ["1 To 14", "More Than 14"];
+  } else if (index === 8) {
+    return ["Rarely", "Sometimes", "Often"];
+  } else {
+    return [];
+  }
+};
 
 export default function QuestionnairePage() {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState(Array(questions.length).fill("")); 
   const [isLoading, setIsLoading] = useState(false);
-
 
   useEffect(() => {
     const checkToken = () => {
@@ -37,7 +63,6 @@ export default function QuestionnairePage() {
       const isLoggedIn = localStorage.getItem("isLoggedIn") || sessionStorage.getItem("sessionActive");
 
       if (isLoggedIn && !token) {
-        // Hapus semua data sesi
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("authToken");
         localStorage.removeItem("username");
@@ -48,26 +73,23 @@ export default function QuestionnairePage() {
         sessionStorage.removeItem("redirectPath");
 
         window.dispatchEvent(new Event("storage"));
-        alert("Sesi Anda telah berakhir. Silakan login kembali.");
+        alert("Your session is over! Please log in to your account again.");
         navigate("/");
       }
     };
 
-    // Mengecek token setiap 2 detik
     const interval = setInterval(checkToken, 2000);
 
-    return () => clearInterval(interval); // Bersihkan interval saat komponen di-unmount
+    return () => clearInterval(interval); 
   }, [navigate]);
 
-  // Fungsi untuk menangani perubahan input radio
   const handleAnswerChange = (questionIndex, answer) => {
     const newAnswers = [...answers];
     newAnswers[questionIndex] = answer;
     setAnswers(newAnswers);
   };
 
-  // Fungsi untuk mengirim jawaban ke backend
-  // Fungsi untuk mengirim jawaban ke backend
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true); 
@@ -85,16 +107,15 @@ const handleSubmit = async (e) => {
     sessionStorage.removeItem("redirectPath");
 
     window.dispatchEvent(new Event("storage"));
-    alert("Anda tidak terautentikasi. Silakan login ulang.");
+    alert("Please log in to your account again!");
     navigate("/");
     return;
   }
 
-  // Validasi: Pastikan semua jawaban telah diisi
   const allAnswered = answers.every((answer) => answer !== "");
   if (!allAnswered) {
     setIsLoading(false);
-    alert("Silakan isi semua jawaban sebelum mengirim.");
+    alert("Make sure to answer all of the questions before submitting.");
     return;
   }
 
@@ -109,11 +130,10 @@ const handleSubmit = async (e) => {
     });
 
     if (!PHQResponse.ok) {
-      alert("Terjadi kesalahan saat menyimpan jawaban.");
+      alert("Failed to save the PHQ-9 answers.");
       return;
     }
 
-    // Tambahkan fetch untuk endpoint submit-answers-cart
     const cartResponse = await fetch("http://localhost:5000/api/submit-answers-cart", {
       method: "POST",
       headers: {
@@ -124,7 +144,35 @@ const handleSubmit = async (e) => {
     });
 
     if (!cartResponse.ok) {
-      alert("Gagal menyimpan jawaban ke CART.");
+      alert("Failed to save the CART answers.");
+      return;
+    }
+
+    const addAgeResponse = await fetch("http://localhost:5000/api/add-age", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({ age: answers[1] }),
+    });
+
+    if (!addAgeResponse) {
+      alert("Failed to save the age");
+      return;
+    }
+
+    const addGenderResponse = await fetch("http://localhost:5000/api/add-gender", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({ gender: answers[0] }),
+    });
+
+    if (!addGenderResponse) {
+      alert("Failed to save the gender");
       return;
     }
 
@@ -138,12 +186,9 @@ const handleSubmit = async (e) => {
     });
 
     if (!PHQPredictResponse) {
-      alert("Gagal mendapatkan hasil prediksi dari model.");
+      alert("Failed to predict PHQ-9");
       return;
     }
-
-    const PHQPredictionData = await PHQPredictResponse.json();
-    const PHQdiagnosis = PHQPredictionData.diagnosis;
 
     const cartPredictionResponse = await fetch("http://localhost:5000/api/predict-answers-cart", {
       method: "POST",
@@ -155,20 +200,16 @@ const handleSubmit = async (e) => {
     });
     
     if (!cartPredictionResponse.ok) {
-      alert("Gagal mendapatkan hasil prediksi CART.");
+      alert("Failed To Save Predict CART.");
       return;
     }
-    
-    const cartPredictionData = await cartPredictionResponse.json();
-    const cartDiagnosis = cartPredictionData.result;
 
-    alert("Jawaban berhasil disimpan!");
-    // navigate("/result");
-    navigate("/result", { state: { phqDiagnosis: PHQdiagnosis, cartDiagnosis } });
+    alert("Your answers have been submitted!");
+    navigate("/result");
 
   } catch (error) {
     console.error("Error:", error);
-    alert("Terjadi kesalahan saat mengirim data ke server.");
+    alert("Failed to send data to the server.");
   } finally {
     setIsLoading(false);
   }
@@ -180,11 +221,11 @@ const handleSubmit = async (e) => {
       <div className="questionnaire-allContainer">
         <div className="container py-4 container-questionnaire">
           <h2 className="text-center mb-4">
-            <strong>Kuisioner Diagnosa Awal Gangguan Mental Depresi</strong>
+            <strong>Early Diagnosis Questionnaire for Mental Disorder "Depression"</strong>
           </h2>
           <div className="line-quiestionnaire" />
           <p className="text-center">
-            Dalam 2 minggu terakhir, seberapa sering Anda mengalami masalah - masalah dibawah ini?
+              Please answer the following questions with honest answers!
           </p>
           <form onSubmit={handleSubmit}>
             {questions.map((question, index) => (
@@ -193,7 +234,21 @@ const handleSubmit = async (e) => {
                   {index + 1}. {question}
                 </p>
                 <div className="d-flex flex-wrap">
-                  {options.map((option, idx) => (
+                {index === 1 ? (
+                  <input
+                  type="text"
+                  className="form-control w-auto"
+                  value={answers[index] || ""}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value === "" || /^(100|[1-9]?[0-9])$/.test(value)) {
+                      handleAnswerChange(index, value);
+                    }
+                  }}
+                  placeholder="Enter Your Age..."
+                />                             
+                ) : (
+                  getOptions(index).map((option, idx) => (
                     <div key={idx} className="form-check me-3">
                       <input
                         className="form-check-input"
@@ -213,7 +268,8 @@ const handleSubmit = async (e) => {
                         {option}
                       </label>
                     </div>
-                  ))}
+                  ))
+                )}
                 </div>
               </div>
             ))}
@@ -223,7 +279,7 @@ const handleSubmit = async (e) => {
                 className="btn btn-success px-4 button-container"
                 disabled={isLoading}
               >
-                {isLoading ? "Mengirim..." : "Kirim Jawaban"}
+                {isLoading ? "Submitting..." : "Submit"}
               </button>
             </div>
           </form>
